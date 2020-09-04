@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Fictional Real Estate Trader</title>
+
+    <link href="https://vret.codesalvageon.repl.co/styles/style.css" rel="stylesheet"/>
+    <link href="https://vret.codesalvageon.repl.co/images/icon.png" rel="icon"/>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <nav>
+      <h1>Fictional Real Estate Trader</h1>
+    </nav>
+    <div id="buttons">
+      <button class="box" id="create-account">Create Account</button><button class="box" id="login">Login</button>
+    </div>
+
+    <br/>
+    <br/>
+    
+    <div id="index-images" class="center">
+      <img src="https://vret.codesalvageon.repl.co/images/property.jpg" id="image1"/>
+      <img src="https://vret.codesalvageon.repl.co/images/city.jpg" id="image2" width="1015"/>
+    </div>
+
+    <div class="modal" id="signup-modal">
+      <div class="modal-content"> 
+        <span class="close" id="close-signup-modal">&times;</span>
+        <h2>Create an Account</h2>
+        <form method="POST" action="https://vret.codesalvageon.repl.co/create_account">
+          <h3>Account Name: <input type="text" name="account_name" class="box" id="new_account_name" required maxlength="25"/></h3>
+          <h3>Email: <input type="email" name="account_email" class="box" id="new_account_email" required/></h3>
+          <h3>Password: <input type="password" name="account_password" class="box" id="new_account_password" required/></h3>
+          <button class="box">Create Account</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="modal" id="login-modal">
+      <div class="modal-content"> 
+        <span class="close" id="close-login-modal">&times;</span>
+        <h2>Login to your Account</h2>
+        <form method="POST" action="https://vret.codesalvageon.repl.co/login">
+          <h3>Account Name: <input type="text" name="account_name" class="box" required maxlength="25"/></h3> 
+          <h3>Password: <input type="text" name="account_pwd" class="box" required/></h3>
+          <button class="box">Login</button>
+          <h4><i>Forgot your password? Click <a href="https://VRET.codesalvageon.repl.co/recover/" target="_blank">here</a>.</i></h4>
+        </form>
+      </div>
+    </div>
+
+    <img src="https://vret.codesalvageon.repl.co/images/chat.png" width="80" height="80" id="chat-icon" alt="Global Chat"/>
+
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="https://vret.codesalvageon.repl.co/scripts/buttons.js"></script>
+    <script src="https://vret.codesalvageon.repl.co/scripts/sockets.js"></script>
+  </body>
+</html>
