@@ -98,7 +98,7 @@ app.post("/create_account", function(req, res) {
       from : "noreplyimpala@gmail.com",
       to : new_account_email,
       subject : "Welcome!",
-      text : "Welcome to the Virtual Real Estate Trader!"
+      text : "Welcome to the Fictional Real Estate Trader!"
     };
 
     transporter.sendMail(mailOptions, function(error, info) {
@@ -157,9 +157,20 @@ app.post("/sendrecoveryemail", function(req, res) {
   const account_recovery_email_dir = account_recovery_dir + 'email.txt';
   const account_recovery_pwd_dir = account_recovery_dir + 'pwd.txt';
 
-  if (fs.exists(account_recovery_dir)) {
-    if (encryptor.decrypt(fs.readFileSync(account_recovery_email_dir)) == account_recovery_email) {
-      const verified_pwd_recover = encryptor.decrypt(fs.readFileSync(account_recovery_pwd_dir, 'utf8'));
+  if (fs.existsSync(account_recovery_dir)) {
+    var decrypted_recovery_email = fs.readFileSync(account_recovery_email_dir, 'utf8');
+
+    decrypted_recovery_email = encryptor.decrypt(decrypted_recovery_email);
+
+    if (encryptor.decrypt(decrypted_recovery_email) == account_recovery_email) {
+      const verified_pwd_recover = encryptor.decrypt(fs.readFile(account_recovery_pwd_dir, 'utf8', function(err, data) {
+        if (err) {
+          console.err;
+        }
+        else{
+          console.log(encryptor.decrypt(data));
+        }
+      }));
 
       recoveryEmail = {
         from : "noreplyimpala@gmail.com",
@@ -188,6 +199,51 @@ app.post("/sendrecoveryemail", function(req, res) {
 
       res.send(error5);
     }
+  }
+  else {
+    const error4 = fs.readFileSync(__dirname + '/public/static/recover.html', 'utf8') + fs.readFileSync(__dirname + '/templates/errors/error4.html', 'utf8');
+
+    res.send(error4);
+  }
+});
+
+app.get("/account-recovery", function(req, res) {
+  res.sendFile(__dirname + '/public/static/recover.html');
+});
+
+app.post("/send-recovery-email", function(req, res) {
+  const recovery_account_backup_name = req.body.recovery_account;
+
+  const recovery_account_backup_dir = __dirname + '/database/accounts/' + recovery_account_backup_name + '/';
+  const recovery_account_backup_email_dir = recovery_account_backup_dir + 'email.txt';
+  const recovery_account_backup_pwd_dir = recovery_account_backup_dir + 'pwd.txt';
+
+  if (fs.existsSync(recovery_account_backup_dir)) {
+    const backup_email_contents = fs.readFileSync(recovery_account_backup_email_dir, 'utf8');
+    const backup_pwd_contents = fs.readFileSync(recovery_account_backup_pwd_dir, 'utf8');
+
+    const backup_email_decipher = encryptor.decrypt(backup_email_contents);
+    const backup_pwd_decipher = encryptor.decrypt(backup_pwd_contents);
+
+    const backupRecovery = {
+      from : "noreplyimpala@gmail.com",
+      to : backup_pwd_decipher,
+      subject : "Account Recovery",
+      text : "Your Account's password: " + backup_email_decipher
+    }
+
+    transporter.sendMail(backupRecovery, function(error, info) {
+      if (error) {
+        console.log(error);
+      }
+      else {
+        console.log("Recovery email sent: " + info.response);
+      }
+    });
+
+    const response1 = fs.readFileSync(__dirname + '/public/static/recover.html', 'utf8') + fs.readFileSync(__dirname + '/templates/responses/response1.html', 'utf8');
+
+    res.send(response1);
   }
   else {
     const error4 = fs.readFileSync(__dirname + '/public/static/recover.html', 'utf8') + fs.readFileSync(__dirname + '/templates/errors/error4.html', 'utf8');
