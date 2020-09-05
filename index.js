@@ -8,6 +8,9 @@ var bodyParser = require("body-parser");
 var io = require("socket.io")(http);
 var port = process.env.PORT || 3000;
 
+const space = `
+`;
+
 var key = process.env.KEY;
 var nodemailer = require('nodemailer');
 var encryptor = require('simple-encryptor')(key);
@@ -110,7 +113,9 @@ app.post("/create_account", function(req, res) {
       }
     });
 
-    res.send('');
+    const view1 = fs.readFileSync(__dirname + '/templates/views/view1.html', 'utf8');
+
+    res.send(view1);
   }
 });
 
