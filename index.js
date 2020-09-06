@@ -1,4 +1,5 @@
 const fs = require("fs");
+const cors = require('cors');
 const express = require("express");
 
 var app = require("express")();
@@ -28,6 +29,11 @@ var read_write;
 app.use(bodyParser.json());
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 app.get("/", function(req, res) {
   const static_file_dir = __dirname + "/public/static/index.html";
@@ -122,7 +128,7 @@ app.post("/login", function(req, res) {
   const login_pwd = req.body.account_pwd;
 
   const login_dir = __dirname + '/database/accounts/' + login_account_name;
-  const pwd_dir = __dirname + '/database/accounts/' + login_account_name + '/pwd.txt';
+  const pwd_dir = __dirname + '/database/accounts/' + login_account_name + '/email.txt';
 
   if (fs.existsSync(login_dir)) {
     fs.readFile(pwd_dir, 'utf8', function(err, data) {
@@ -131,7 +137,7 @@ app.post("/login", function(req, res) {
       }
       else {
         if (encryptor.decrypt(data) == login_pwd) {
-          res.send();
+          res.redirect("/dashboard");
         }
         else {
           const error3 = fs.readFileSync(__dirname + '/public/static/index.html', 'utf8') + fs.readFileSync(__dirname + '/templates/errors/error3.html', 'utf8');
@@ -261,7 +267,9 @@ app.get("/dashboard", function(req, res) {
   res.sendFile(__dirname + '/templates/views/view1.html');
 });
 
-app.post("/check_login", function(req, res) {
+app.post("/check_login", cors(), function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+
   const fetched_username = req.body.fetch_username;
   const fetched_password = req.body.fetch_password;
 

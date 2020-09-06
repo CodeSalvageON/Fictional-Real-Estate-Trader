@@ -2,12 +2,13 @@ function json(response) {
   return response.json();
 }
 
-var request_url = "https://fret.codesalvageon.repl.co/check_login";
+var request_url = "/check_login";
 
 fetch(request_url, {
   method : "POST",
   headers : {  
-    "Content-type": "application/x-www-form-urlencoded"  
+    "Content-type": "application/x-www-form-urlencoded",
+    "Access-Control-Allow-Origin" : "no-cors"
   }, 
   body : "fetch_username=" + localStorage.getItem("username") + "&fetch_password=" + localStorage.getItem("password")
 })
