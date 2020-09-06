@@ -2,7 +2,7 @@ function json(response) {
   return response.json();
 }
 
-var request_url = "/check_login";
+var request_url = "https://fret.codesalvageon.repl.co/check_login";
 
 fetch(request_url, {
   method : "POST",

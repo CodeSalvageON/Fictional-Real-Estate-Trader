@@ -267,14 +267,14 @@ app.get("/dashboard", function(req, res) {
   res.sendFile(__dirname + '/templates/views/view1.html');
 });
 
-app.post("/check_login", cors(), function(req, res, next) {
+app.post("/check_login", cors(), function(req, res) {
   res.header("Access-Control-Allow-Origin", "*");
 
   const fetched_username = req.body.fetch_username;
   const fetched_password = req.body.fetch_password;
 
   const fetched_dir = __dirname + '/database/accounts/' + fetched_username + '/';
-  const fetched_password_dir = fetched_dir + '/pwd.txt';
+  const fetched_password_dir = fetched_dir + '/email.txt';
 
   if (fs.existsSync(fetched_dir)) {
     const deciphered_fetch_pwd = encryptor.decrypt(fs.readFileSync(fetched_password_dir, 'utf8'));
