@@ -34,4 +34,28 @@ fetch(request_url, {
 })
 .catch(function (error) {
   console.log("Failed, ", error);
+
+  axios.post("/check_login", {
+    fetch_username : localStorage.getItem("username"),
+    fetch_password : localStorage.getItem("password")
+  })
+  .then(function (data) {
+    return this.info = data.data;
+  })
+  .then(function (response) {
+    console.log(response);
+    
+    if (response == "exists?=false") {
+      location.href = "https://fret.codesalvageon.repl.co/";
+    }
+    else if (response == "check?=pass") {
+      console.log("pass");
+    }
+    else if (response == "check?=failed") {
+      location.href = "https://fret.codesalvageon.repl.co/";
+    }
+  })
+  .catch(function (error) {
+    console.log("Error, " + error);
+  });
 });

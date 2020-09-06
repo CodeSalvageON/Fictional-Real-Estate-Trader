@@ -119,7 +119,7 @@ app.post("/create_account", function(req, res) {
       }
     });
 
-    res.redirect("/dashboard");
+    res.sendFile(__dirname + '/templates/redirects/redirect1.html');
   }
 });
 
@@ -137,7 +137,7 @@ app.post("/login", function(req, res) {
       }
       else {
         if (encryptor.decrypt(data) == login_pwd) {
-          res.redirect("/dashboard");
+          res.sendFile(__dirname + '/templates/redirects/redirect1.html');
         }
         else {
           const error3 = fs.readFileSync(__dirname + '/public/static/index.html', 'utf8') + fs.readFileSync(__dirname + '/templates/errors/error3.html', 'utf8');
