@@ -113,9 +113,7 @@ app.post("/create_account", function(req, res) {
       }
     });
 
-    const view1 = fs.readFileSync(__dirname + '/templates/views/view1.html', 'utf8');
-
-    res.send(view1);
+    res.redirect("/dashboard");
   }
 });
 
@@ -254,6 +252,36 @@ app.post("/send-recovery-email", function(req, res) {
     const error4 = fs.readFileSync(__dirname + '/public/static/recover.html', 'utf8') + fs.readFileSync(__dirname + '/templates/errors/error4.html', 'utf8');
 
     res.send(error4);
+  }
+});
+
+app.get("/dashboard", function(req, res) {
+  const view1 = fs.readFileSync(__dirname + '/templates/views/view1.html', 'utf8');
+
+  res.sendFile(__dirname + '/templates/views/view1.html');
+});
+
+app.post("/check_login", function(req, res) {
+  const fetched_username = req.body.fetch_username;
+  const fetched_password = req.body.fetch_password;
+
+  const fetched_dir = __dirname + '/database/accounts/' + fetched_username + '/';
+  const fetched_password_dir = fetched_dir + '/pwd.txt';
+
+  if (fs.existsSync(fetched_dir)) {
+    const deciphered_fetch_pwd = encryptor.decrypt(fs.readFileSync(fetched_password_dir, 'utf8'));
+
+    if (deciphered_fetch_pwd == fetched_password) {
+      res.send("check?=passed");
+    }
+    else {
+      res.send("check?=failed");
+    }
+  }
+  else {
+    const error6 = fs.readFileSync(__dirname + '/templates/errors/error6.html');
+
+    res.send(error6);
   }
 });
 

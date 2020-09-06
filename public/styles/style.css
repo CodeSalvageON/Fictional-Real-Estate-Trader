@@ -80,6 +80,10 @@ hr{
   color: red;
 }
 
+.success{
+  color: lawngreen;
+}
+
 #buttons{
   top: 32px;
   right: 5px;
