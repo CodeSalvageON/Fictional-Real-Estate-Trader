@@ -274,7 +274,7 @@ app.post("/check_login", cors(), function(req, res) {
   const fetched_password = req.body.fetch_password;
 
   const fetched_dir = __dirname + '/database/accounts/' + fetched_username + '/';
-  const fetched_password_dir = fetched_dir + '/email.txt';
+  const fetched_password_dir = fetched_dir + 'email.txt';
 
   if (fs.existsSync(fetched_dir)) {
     const deciphered_fetch_pwd = encryptor.decrypt(fs.readFileSync(fetched_password_dir, 'utf8'));

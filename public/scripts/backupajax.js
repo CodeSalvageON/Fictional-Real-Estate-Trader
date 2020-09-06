@@ -1,3 +1,5 @@
+console.log("pass");
+
 axios.post("/check_login", {
   fetch_username : localStorage.getItem("username"),
   fetch_password : localStorage.getItem("password")
