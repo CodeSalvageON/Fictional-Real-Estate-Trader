@@ -19,7 +19,7 @@ fetch(button_check_url, {
     return false;
   }
   else if (x == "check?=passed") {
-    document.getElementById("buttons").innerHTML = "<button class='box'>Buy</button><button class='box'>Sell</button><button class='box'>Other</button>";
+    document.getElementById("buttons").innerHTML = "<button class='box' id='buy-button' onclick='showBuyModal()'>Buy</button><button class='box' id='sell-button'>Sell</button><button class='box' id='other-button'>Other</button>";
   }
   else if (x == "exists?=false") {
     return false;

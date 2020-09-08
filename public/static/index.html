@@ -28,7 +28,7 @@
       <div class="modal-content"> 
         <span class="close" id="close-signup-modal">&times;</span>
         <h2>Create an Account</h2>
-        <form method="POST" action="https://vret.codesalvageon.repl.co/create_account" id="signup-form">
+        <form method="POST" action="https://vret.codesalvageon.repl.co/create_account" id="signup-form" onsubmit="signUp()">
           <h3>Account Name: <input type="text" name="account_name" class="box" id="new_account_name" required maxlength="25"/></h3>
           <h3>Email: <input type="email" name="account_email" class="box" id="new_account_email" required/></h3>
           <h3>Password: <input type="password" name="account_password" class="box" id="new_account_password" required/></h3>
@@ -41,9 +41,9 @@
       <div class="modal-content"> 
         <span class="close" id="close-login-modal">&times;</span>
         <h2>Login to your Account</h2>
-        <form method="POST" action="https://vret.codesalvageon.repl.co/login" id="login-form">
+        <form method="POST" action="https://vret.codesalvageon.repl.co/login" id="login-form" onsubmit="logIn()">
           <h3>Account Name: <input type="text" name="account_name" class="box" required maxlength="25" id="login_account_name"/></h3> 
-          <h3>Password: <input type="text" name="account_pwd" class="box" required id="login_password_name"/></h3>
+          <h3>Password: <input type="password" name="account_pwd" class="box" required id="login_password_name"/></h3>
           <button class="box">Login</button>
           <h4><i>Forgot your password? Click <a href="https://VRET.codesalvageon.repl.co/account-recovery/" target="_blank">here</a>.</i></h4>
         </form>
@@ -53,7 +53,10 @@
     <img src="https://vret.codesalvageon.repl.co/images/chat.png" width="80" height="80" id="chat-icon" alt="Global Chat"/>
 
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="https://FRET.codesalvageon.repl.co/scripts/nullstorage.js"></script>
+    <script src="https://FRET.codesalvageon.repl.co/scripts/storage.js"></script>
     <script src="https://vret.codesalvageon.repl.co/scripts/buttons.js"></script>
     <script src="https://fret.codesalvageon.repl.co/scripts/storage.js"></script>
+    <script src="https://FRET.codesalvageon.repl.co/scripts/storage.js"></script>
   </body>
 </html>

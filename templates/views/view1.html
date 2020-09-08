@@ -13,12 +13,30 @@
       <h1>Fictional Real Estate Trader</h1>
     </nav>
     <div id="buttons">
+      <button class='box' id='buy-button' onclick='showBuyModal()'>Buy</button><button class='box' id='sell-button'>Sell</button><button class='box' id='other-button'>Other</button>
+    </div>
+
+    <div class="modal" id="buy-modal">    
+      <div class="modal-content">
+        <span class="close" id="close-buy-modal">&times;</span>
+        <h2>Buy Fictional Property</h2>
+        <h3 id="buy-balance">Your account balance: </h3>
+      </div>
+    </div>
+
+    <div class="modal" id="sell-modal">
+     <div class="modal-content"> 
+       <span class="close" id="close-sell-modal">&times;</span>
+       <h2>Sell Fictional Property</h2>
+     </div>
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="https://FRET.codesalvageon.repl.co/scripts/storage.js"></script>
+    <script src="https://FRET.codesalvageon.repl.co/tests/scripts/teststorage.js"></script>
     <script src="https://vret.codesalvageon.repl.co/scripts/buttons.js"></script>
-    <script src="https://fret.codesalvageon.repl.co/scripts/storage.js"></script>
-    <script src="https://FRET.codesalvageon.repl.co/scripts/buttonajax.js"></script>
+    <script src="https://FRET.codesalvageon.repl.co/scripts/balance.js"></script>
+    <script src="https://FRET.codesalvageon.repl.co/scripts/logged_in_buttons.js"></script>
   </body>
 </html>

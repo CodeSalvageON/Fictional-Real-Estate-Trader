@@ -50,6 +50,9 @@ app.post("/create_account", function(req, res) {
   const new_pwd_dir = new_account_dir + 'email.txt';
   const new_email_dir = new_account_dir + 'pwd.txt';
 
+  const new_checking_dir = __dirname + '/database/checking/' + new_account_name + '/';
+  const new_checking_account_dir = new_checking_dir + 'check.txt';
+
   const file_already_exists = __dirname + '/templates/errors/error1.html';
 
   if (fs.existsSync(new_account_dir)) {
@@ -119,7 +122,25 @@ app.post("/create_account", function(req, res) {
       }
     });
 
-    res.sendFile(__dirname + '/templates/redirects/redirect1.html');
+    fs.mkdir(new_checking_dir, function(err) {
+      if (err) {
+        console.err;
+      }
+      else {
+        console.log("pass");
+      }
+    });
+
+    fs.appendFile(new_checking_account_dir, encryptor.encrypt("500000"), function(err) {
+      if (err) {
+        console.err;
+      }
+      else {
+        console.log("pass");
+      }
+    });
+
+    res.sendFile(__dirname + '/templates/views/view1.html');
   }
 });
 
@@ -137,7 +158,7 @@ app.post("/login", function(req, res) {
       }
       else {
         if (encryptor.decrypt(data) == login_pwd) {
-          res.sendFile(__dirname + '/templates/redirects/redirect1.html');
+          res.sendFile(__dirname + '/templates/views/view1.html');
         }
         else {
           const error3 = fs.readFileSync(__dirname + '/public/static/index.html', 'utf8') + fs.readFileSync(__dirname + '/templates/errors/error3.html', 'utf8');
@@ -262,9 +283,9 @@ app.post("/send-recovery-email", function(req, res) {
 });
 
 app.get("/dashboard", function(req, res) {
-  const view1 = fs.readFileSync(__dirname + '/templates/views/view1.html', 'utf8');
-
-  res.sendFile(__dirname + '/templates/views/view1.html');
+  console.log("");
+  
+  res.send("");
 });
 
 app.post("/check_login", cors(), function(req, res) {
@@ -290,6 +311,26 @@ app.post("/check_login", cors(), function(req, res) {
     const error6 = fs.readFileSync(__dirname + '/templates/errors/error6.html');
 
     res.send(error6);
+  }
+});
+
+app.post("/check_balance", function(req, res) {
+  const checking_username = req.body.checking_username;
+
+  const checking_account_dir = __dirname + '/database/checking/' + checking_username + '/';
+  const checking_balance_dir = checking_account_dir + 'check.txt';
+
+  if (fs.existsSync(checking_account_dir)) {
+    const decrypted_checking_balance = encryptor.decrypt(fs.readFileSync(checking_balance_dir, 'utf8'));
+
+    console.log(decrypted_checking_balance);
+
+    res.send(decrypted_checking_balance);
+  }
+  else {
+    const error7 = fs.readFileSync(checking_balance_dir, 'utf8');
+
+    res.send(error7);
   }
 });
 
